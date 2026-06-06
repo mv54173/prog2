@@ -1,0 +1,5 @@
+Ovo je recenica koja pocinje velikim slovom.
+ovo je recenica koja pocinje malim slovom.
+Programiranje je zabavno.
+jezik C je mocan alat.
+Datoteke su korisne za pohranu podataka.
