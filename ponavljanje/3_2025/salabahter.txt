@@ -1,0 +1,180 @@
+//binarno pretrazivanje
+int dg=0, gg=sizeof(niz)/sizeof(int)-1, s; //sizeof(niz)/sizeof(int)-1 izraz vrijedi samo za statički zauzeta polja, nikako ne koristiti unutar funkcije, bolje predati dodatni argument funkciji koji označava duljinu polja
+while (dg<=gg) {
+    s = (dg+gg)/2;
+    if (x == V[s]) 
+        break;
+    else if (x>V[s]) {
+        dg = s+1;
+    }
+    else if (x<V[s]) {
+        gg = s-1;
+    }
+}
+if (dg>gg) 
+    printf ("\nBroj nije pronadjen!");
+    
+//zamjena elemenata
+void swap (int *x, int *y) {
+    int aux;
+    aux = *x;
+    *x = *y;
+    *y = aux;
+}
+
+void selectionSort (int a[], int n) {
+    int i, j, min;
+    for (i = 0; i < n-1; i++) {
+        min = i;
+        for (j = i+1; j < n; j++)
+            if (a[j] < a[min]) 
+                min = j;
+        swap(&a[i], &a[min]);
+    }
+}
+
+void bubbleSort (int a[], int n) {
+    int i, j;
+    for (i = 0; i < n-1; i++)
+	    for (j = 0; j < n-1-i; j++)
+		    if (a[j+1] < a[j])
+                swap(&a[j], &a[j+1]);
+}
+
+//matrica i struktura
+typedef struct spremnik {
+	int red;
+	int stupac;
+	int** podaci;
+}MATRICA;
+
+//dinamicka alokacija memorije za matricu prema gornjoj strukturi
+M = (MATRICA *)malloc(sizeof(MATRICA ));  
+M->podaci = (int **)malloc(red * sizeof(int*));
+for(i=0; i<red; i++){
+    M->podaci[i] = (int*)malloc(stupac * sizeof(int));
+}
+
+//oslobadjanje dinamicki alocirane memorije za 2D polje
+void Brisanje(MATRICA* M) {
+    for(i=0; i< M->red; i++)
+        free(M->podaci[i]);
+    free(M->podaci);
+}
+
+//rad s datotekama
+FILE *pFile; //deklaracija pokazivača
+struct razred A[40]; 
+pFile = fopen (filename,mode); //postavljanje pokazivača
+if (pFile==NULL){
+    printf("Greska prilikom otvaranja datoteke");
+}
+for (i=0; i<n; i++){
+    //fwrite(&A[i],sizeof(struct razred),1,pFile); //pisanje iz binarne datoteke u A[i]
+    fread(&A[i],sizeof(struct razred),1,pFile); //citanje iz binarne datoteke u A[i]
+}
+fclose (pFile);
+
+//promjena pozicije unutar datoteke
+int fseek(FILE *fp, long pomak, int od_pozicije);
+
+//jednostruko povezani popis
+typedef struct sllist {
+    int number;
+    struct sllist *nextNode;
+}SLLNODE;
+
+//kreiranje JPP
+SLLNODE* createSLList(void) {
+    SLLNODE *headNode = (SLLNODE*)calloc(1, sizeof(SLLNODE));
+    if (headNode == NULL) {
+        perror("Kreiranje");
+        return NULL;
+    }
+    else {
+        printf("Unesite cijeli broj!\n");
+        scanf("%d", &headNode->number);
+        headNode->nextNode = NULL;
+    }
+    return headNode;
+}
+
+//umetanje novog cvora na pocetak JPP
+SLLNODE* insertNewNodeSLList(SLLNODE* headNode) {
+    SLLNODE *newHeadNode = (SLLNODE*)calloc(1, sizeof(SLLNODE));
+    if (newHeadNode == NULL) {
+        perror("Kreiranje");
+        return headNode;
+    }
+    else {
+        printf("Unesite cijeli broj!\n");
+        scanf("%d", &newHeadNode->number);
+        newHeadNode->nextNode = headNode;
+    }
+    return newHeadNode;
+}
+
+//obilazak JPP i ispis svih cvorova
+int traverseSLList(SLLNODE* traverseNode) {
+    int counter = 0;
+    if (traverseNode == NULL) {
+        return -1;
+    }
+    else {
+        while (traverseNode) {
+            counter++;
+            printf("Node number: %d\tnumber: %d\tcurrent node addr:\ %p\tnext node addr: %p\n", counter, traverseNode->number, traverseNode, traverseNode->nextNode);
+            traverseNode = traverseNode->nextNode;
+        }
+    }
+    return counter;
+}
+
+//pretraživanje određenog čvora
+SLLNODE* searchSLList(SLLNODE* traverseNode, int criteria) {
+    while (traverseNode) {
+        if (traverseNode->number == criteria) {
+            return traverseNode;
+        }
+        traverseNode = traverseNode->nextNode;
+    }
+    return NULL;
+}
+
+//brisanje jednog cvora JPP
+void deleteNodeSLList(SLLNODE** headNode, SLLNODE* targetNode) {
+    if (*headNode == targetNode) {
+        *headNode = (*headNode)->nextNode;
+        free(targetNode);
+    }
+    else {
+        SLLNODE* traverseNode = *headNode;
+        while (traverseNode->nextNode) {
+            if (traverseNode->nextNode == targetNode) {
+                traverseNode->nextNode = targetNode->nextNode;
+                free(targetNode);
+                break;
+            }
+            traverseNode = traverseNode->nextNode;
+        }
+    }
+}
+
+//brisanje cijelog JPP
+SLLNODE* deleteWholeSLList(SLLNODE* traverseNode) {
+    SLLNODE* deleteNode = NULL;
+    while (traverseNode) {
+        deleteNode = traverseNode;
+        traverseNode = traverseNode->nextNode;
+        free(deleteNode);
+    }
+    return NULL;
+}
+
+//enumeracija mjeseci u godini
+enum months {
+    JAN = 1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+};
+
+//parametarski makro 
+#define kvadrat(x) (x) * (x)

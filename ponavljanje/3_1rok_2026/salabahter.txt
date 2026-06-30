@@ -1,0 +1,184 @@
+//funkcije sa stringom
+/*Kopira do n znakova ili znakove do pojave null znaka 
+iz stringa na koji pokazuje source na mjesto u memoriji na koje pokazuje dest; 
+vraca vrijednost dest*/
+	char *strncpy(char *dest, const char *source, size_t n);
+	
+/* Usporedjuje do maksimalno prvih n znakova ili do prve pojave null znaka stringova na koje pokazuju s1 i s2;  
+vraca nula ako su polja jednaka, vrijednost manju od nula ako je prvo manje od drugog 
+te vrijednost vecu od nula akoje prvopolje vece od drugog*/
+	int strncmp(const char *s1, const char *s2, size_t n); 
+	
+/*Nadodaje kopiju do najviše n znakova ili znakove do pojave null znaka iz 
+stringa na koji pozakuje source na mjesto u memoriji na koje pokazuje dest, 
+s time da prvi znak stringa source prepisuje null znak stringa dest; 
+na kraj dodaje null znak; vraca vrijednost dest*/
+	char *strncat(char * dest, const char *source, size_t n);
+	
+//broj znakova u stringu (bez /0)
+	int strlen(const char *s); 
+
+//binarno pretrazivanje
+int dg=0, gg=n-1, s;
+while (dg<=gg) {
+    s = (dg+gg)/2;
+    if (x == V[s]) 
+        break;
+    else if (x>V[s]) {
+        dg = s+1;
+    }
+    else if (x<V[s]) {
+        gg = s-1;
+    }
+}
+if (dg>gg) 
+    printf ("\nBroj nije pronadjen!");
+    
+//zamjena elemenata
+void swap (int *x, int *y) {
+    int aux;
+    aux = *x;
+    *x = *y;
+    *y = aux;
+}
+
+void selectionSort (int a[], int n) {
+    int i, j, min;
+    for (i = 0; i < n-1; i++) {
+        min = i;
+        for (j = i+1; j < n; j++)
+            if (a[j] < a[min]) 
+                min = j;
+        swap(&a[i], &a[min]);
+    }
+}
+
+void bubbleSort (int a[], int n) {
+    int i, j;
+    for (i = 0; i < n-1; i++)
+	    for (j = 0; j < n-1-i; j++)
+		    if (a[j+1] < a[j])
+                swap(&a[j], &a[j+1]);
+}
+////////////////////////////////////////////////////////////////////////////////
+
+//rad s datotekama
+FILE *fopen(const char *filename, const char *mode) //deklaracija funkcije fopen()
+
+Definicija fread funkcije
+
+#include <stdio.h>
+size_t fread(void *buffer, size_t size, size_t count, FILE *stream);
+
+
+The fread() function returns the number of full items successfully read, 
+which can be less than count if an error occurs, or if the end-of-file is met before 
+reaching count. If size or count is 0, the fread() function returns zero, and the 
+contents of the array and the state of the stream remain unchanged.
+
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)    //deklaracija funkcije fwrite()
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+Definicija fscanf funkcije
+
+
+#include <stdio.h>
+int fscanf (FILE *stream, const char *format-string, argument-list);
+
+
+The fscanf() function returns the number of fields that it successfully converted 
+and assigned. The return value does not include fields that the fscanf() function 
+read but did not assign.
+
+
+//jednostruko povezani popis
+typedef struct sllist {
+    int number;
+    struct sllist *nextNode;
+}SLLNODE;
+
+//kreiranje JPP
+SLLNODE* createSLList(void) {
+    SLLNODE *headNode = (SLLNODE*)calloc(1, sizeof(SLLNODE));
+    if (headNode == NULL) {
+        perror("Kreiranje");
+        return NULL;
+    }
+    else {
+        printf("Unesite cijeli broj!\n");
+        scanf("%d", &headNode->number);
+        headNode->nextNode = NULL;
+    }
+    return headNode;
+}
+//umetanje novog cvora na pocetak JPP
+SLLNODE* insertNewNodeSLList(SLLNODE* headNode) {
+    SLLNODE *newHeadNode = (SLLNODE*)calloc(1, sizeof(SLLNODE));
+    if (newHeadNode == NULL) {
+        perror("Kreiranje");
+        return headNode;
+    }
+    else {
+        printf("Unesite cijeli broj!\n");
+        scanf("%d", &newHeadNode->number);
+        newHeadNode->nextNode = headNode;
+    }
+    return newHeadNode;
+}
+
+//obilazak JPP i ispis svih cvorova
+int traverseSLList(SLLNODE* traverseNode) {
+    int counter = 0;
+    if (traverseNode == NULL) {
+        return -1;
+    }
+    else {
+        while (traverseNode) {
+            counter++;
+            printf("Node number: %d\tnumber: %d\tcurrent node addr:\ %p\tnext node addr: %p\n", counter, traverseNode->number, traverseNode, traverseNode->nextNode);
+            traverseNode = traverseNode->nextNode;
+        }
+    }
+    return counter;
+}
+
+//brisanje jednog cvora JPP
+void deleteNodeSLList(SLLNODE** headNode, SLLNODE* targetNode) {
+    if (*headNode == targetNode) {
+        *headNode = (*headNode)->nextNode;
+        free(targetNode);
+        printf("Oslobodjen chvor: %p\n", targetNode);
+    }
+    else {
+        SLLNODE* traverseNode = *headNode;
+        while (traverseNode->nextNode) {
+        if (traverseNode->nextNode == targetNode) {
+            traverseNode->nextNode = targetNode->nextNode;
+            free(targetNode);
+            printf("Oslobodjen chvor: %p\n", targetNode);
+            break;
+        }
+        traverseNode = traverseNode->nextNode;
+    }
+}
+}
+//brisanje cijelog JPP
+SLLNODE* deleteWholeSLList(SLLNODE* traverseNode) {
+    SLLNODE* deleteNode = NULL;
+    while (traverseNode) {
+        deleteNode = traverseNode;
+        traverseNode = traverseNode->nextNode;
+        free(deleteNode);
+        printf("Oslobodjen chvor: %p\n", deleteNode);
+    }
+    return NULL;
+}
+//enumeracija mjeseci u godini
+enum months {
+    JAN = 1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+};
+
+//parametarski makro 
+#define kvadrat(x) (x) * (x)

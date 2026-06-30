@@ -1,0 +1,7 @@
+6
+Margherita pizza;Talijanska;2023;Vegetarijansko;45
+Beef stroganoff;Ruska;2021;Mesno;90
+Tiramisu;Talijanska;2022;Desert;30
+Pileći curry;Indijska;2020;Mesno;60
+Caprese salata;Talijanska;2023;Vegetarijansko;10
+Cheesecake;Američka;2022;Desert;75
